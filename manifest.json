@@ -1,10 +1,9 @@
 {
 	"id": "hello-nemesis",
 	"name": "hello nemesis",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"minAppVersion": "0.15.0",
 	"description": "Uses OpenAI to challenge your ideas.",
 	"author": "Dian",
-	"authorUrl": "https://obsidian.md",
 	"isDesktopOnly": false
 }
