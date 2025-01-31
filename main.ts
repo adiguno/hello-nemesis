@@ -29,6 +29,8 @@ export default class NemesisPlugin extends Plugin {
 			new Notice("Hello, nemesis!");
 		});
 
+		console.log("loading plugin");
+
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon(
 			"dice",
