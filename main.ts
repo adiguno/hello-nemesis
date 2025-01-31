@@ -33,12 +33,12 @@ export default class NemesisPlugin extends Plugin {
 
 	async testFunction() {
 		const activeFile = this.app.workspace.getActiveFile();
-		console.log('activeFile')
-		console.log(activeFile)
+		// console.log('activeFile')
+		// console.log(activeFile)
 		if (!activeFile) return null;
 
 		const fileContent = await this.app.vault.read(activeFile);
-		console.log(fileContent)
+		// console.log(fileContent)
 		const nemesisPrompt = `You are a friendly but challenging intellectual nemesis. 
 		Review the following content and respond with:
 		1. Point out potential logical flaws or assumptions
@@ -194,14 +194,14 @@ export default class NemesisPlugin extends Plugin {
 
 		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
 		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, "click", (evt: MouseEvent) => {
-			console.log("click", evt);
-		});
+		// this.registerDomEvent(document, "click", (evt: MouseEvent) => {
+		// 	console.log("click", evt);
+		// });
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(
-			window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000)
-		);
+		// this.registerInterval(
+		// 	window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000)
+		// );
 	}
 
 	onunload() { }
