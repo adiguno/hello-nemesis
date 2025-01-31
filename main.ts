@@ -30,6 +30,12 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 export default class NemesisPlugin extends Plugin {
 	settings: MyPluginSettings;
 
+	async testFunction() {
+		const { workspace } = this.app;
+
+		// let a = await workspace.ensureSideLeaf(VIEW_TYPE_EXAMPLE, "right");
+		// console.log(a);
+	}
 	async activateView() {
 		const { workspace } = this.app;
 		let leaf: WorkspaceLeaf | null = null;
@@ -46,6 +52,10 @@ export default class NemesisPlugin extends Plugin {
 					active: true,
 				});
 			}
+		}
+		if (leaf) {
+			workspace.revealLeaf(leaf);
+			workspace.setActiveLeaf(leaf);
 		}
 	}
 
@@ -67,6 +77,7 @@ export default class NemesisPlugin extends Plugin {
 				new Notice("This is a notice!");
 				console.log("click");
 				this.activateView();
+				this.testFunction();
 				// console.log(`My openai key: ${this.settings.openAiKey}`);
 			}
 		);
