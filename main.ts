@@ -13,10 +13,12 @@ import {
 
 interface MyPluginSettings {
 	mySetting: string;
+	openAiKey: string;
 }
 
 const DEFAULT_SETTINGS: MyPluginSettings = {
 	mySetting: "default",
+	openAiKey: "openAiKeyTBD",
 };
 
 export default class NemesisPlugin extends Plugin {
@@ -25,11 +27,8 @@ export default class NemesisPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		this.addRibbonIcon("dice", "Greet", () => {
-			new Notice("Hello, nemesis!");
-		});
-
 		console.log("loading plugin");
+		console.log("My openai key: " + this.settings.openAiKey);
 
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon(
