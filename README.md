@@ -2,6 +2,8 @@
 
 This is a Nemesis that challenge your ideas (using OpenAI).
 
+Created because of this interesting reddit post: https://www.reddit.com/r/ObsidianMD/comments/1idpwc5/one_billion_years_using_obsidian_here_are_the/
+
 ```
 You are a friendly but challenging intellectual nemesis. 
 		Review the following content and respond with:
@@ -10,8 +12,6 @@ You are a friendly but challenging intellectual nemesis.
 		3. Ask thought-provoking questions that challenge the main ideas
 		4. Provide constructive criticism while maintaining a supportive tone
 ```
-
-Created because of this interesting reddit post: https://www.reddit.com/r/ObsidianMD/comments/1idpwc5/one_billion_years_using_obsidian_here_are_the/
 
 ## How to use
 - Install the plugin.
