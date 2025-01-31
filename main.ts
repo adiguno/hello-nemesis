@@ -1,4 +1,5 @@
 import {
+	addIcon,
 	App,
 	Editor,
 	MarkdownView,
@@ -31,8 +32,12 @@ export default class NemesisPlugin extends Plugin {
 		console.log("My openai key: " + this.settings.openAiKey);
 
 		// This creates an icon in the left ribbon.
+		addIcon(
+			"logo",
+			'<path d="M2 21V7.49072C2 5.75918 4.05088 4.8458 5.33793 6.00414L18.6621 17.9959C19.9491 19.1542 22 18.2408 22 16.5093V3" stroke="#FF8A8A" stroke-width="2" stroke-linecap="round"/>'
+		);
 		const ribbonIconEl = this.addRibbonIcon(
-			"dice",
+			"logo",
 			"Sample Plugin",
 			(evt: MouseEvent) => {
 				// Called when the user clicks the icon.
