@@ -27,15 +27,37 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 	openAiKey: "openAiKeyTBD",
 };
 
+
 export default class NemesisPlugin extends Plugin {
-	settings: MyPluginSettings;
+    settings: MyPluginSettings;
 
-	async testFunction() {
-		const { workspace } = this.app;
+    async testFunction() {
+        try {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${this.settings.openAiKey}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo",
+                    messages: [{ role: "user", content: "Hello!" }]
+                })
+            });
 
-		// let a = await workspace.ensureSideLeaf(VIEW_TYPE_EXAMPLE, "right");
-		// console.log(a);
-	}
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error?.message || 'API request failed');
+            }
+
+            new Notice("OpenAI Response: " + data.choices[0].message.content);
+        } catch (error) {
+            new Notice("OpenAI Error: " + error.message);
+            console.error("OpenAI Error:", error);
+        }
+    }
+
 	async activateView() {
 		const { workspace } = this.app;
 		let leaf: WorkspaceLeaf | null = null;
