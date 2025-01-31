@@ -29,12 +29,11 @@ export default class NemesisPlugin extends Plugin {
 		await this.loadSettings();
 
 		console.log("loading plugin");
-		console.log("My openai key: " + this.settings.openAiKey);
 
 		// This creates an icon in the left ribbon.
 		addIcon(
 			"logo",
-			'<path d="M2 21V7.49072C2 5.75918 4.05088 4.8458 5.33793 6.00414L18.6621 17.9959C19.9491 19.1542 22 18.2408 22 16.5093V3" stroke="#FF8A8A" stroke-width="2" stroke-linecap="round"/>'
+			'<path d="M10 90V14.8284C10 13.0466 12.1543 12.1543 13.4142 13.4142L86.5858 86.5858C87.8457 87.8457 90 86.9534 90 85.1716V10" stroke="#FF8A8A" stroke-width="4" stroke-linecap="round"/>'
 		);
 		const ribbonIconEl = this.addRibbonIcon(
 			"logo",
@@ -42,52 +41,57 @@ export default class NemesisPlugin extends Plugin {
 			(evt: MouseEvent) => {
 				// Called when the user clicks the icon.
 				new Notice("This is a notice!");
+				console.log("click");
+				// console.log(`My openai key: ${this.settings.openAiKey}`);
 			}
 		);
-		// Perform additional things with the ribbon
-		ribbonIconEl.addClass("my-plugin-ribbon-class");
+		// todo create and open new view to display the open ai nemesis result
+
+		// use this class to perform additional things with the ribbon
+		// ribbonIconEl.addClass("my-plugin-ribbon-class");
 
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText("Status Bar Text");
+		// const statusBarItemEl = this.addStatusBarItem();
+		// statusBarItemEl.setText("asdfasdfasdfasdfs");
 
 		// This adds a simple command that can be triggered anywhere
-		this.addCommand({
-			id: "open-sample-modal-simple",
-			name: "Open sample modal (simple)",
-			callback: () => {
-				new SampleModal(this.app).open();
-			},
-		});
+		// this.addCommand({
+		// 	id: "open-sample-modal-simple",
+		// 	name: "Open sample modal (simple)",
+		// 	callback: () => {
+		// 		new SampleModal(this.app).open();
+		// 	},
+		// });
 		// This adds an editor command that can perform some operation on the current editor instance
-		this.addCommand({
-			id: "sample-editor-command",
-			name: "Sample editor command",
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				console.log(editor.getSelection());
-				editor.replaceSelection("Sample Editor Command");
-			},
-		});
+		// get the current text selection in editor and replace it with "Sample Editor Command"
+		// this.addCommand({
+		// 	id: "sample-editor-command",
+		// 	name: "Sample editor command",
+		// 	editorCallback: (editor: Editor, view: MarkdownView) => {
+		// 		console.log(editor.getSelection());
+		// 		editor.replaceSelection("Sample Editor Command");
+		// 	},
+		// });
 		// This adds a complex command that can check whether the current state of the app allows execution of the command
-		this.addCommand({
-			id: "open-sample-modal-complex",
-			name: "Open sample modal (complex)",
-			checkCallback: (checking: boolean) => {
-				// Conditions to check
-				const markdownView =
-					this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
-					if (!checking) {
-						new SampleModal(this.app).open();
-					}
+		// this.addCommand({
+		// 	id: "open-sample-modal-complex",
+		// 	name: "Open sample modal (complex)",
+		// 	checkCallback: (checking: boolean) => {
+		// 		// Conditions to check
+		// 		const markdownView =
+		// 			this.app.workspace.getActiveViewOfType(MarkdownView);
+		// 		if (markdownView) {
+		// 			// If checking is true, we're simply "checking" if the command can be run.
+		// 			// If checking is false, then we want to actually perform the operation.
+		// 			if (!checking) {
+		// 				new SampleModal(this.app).open();
+		// 			}
 
-					// This command will only show up in Command Palette when the check function returns true
-					return true;
-				}
-			},
-		});
+		// 			// This command will only show up in Command Palette when the check function returns true
+		// 			return true;
+		// 		}
+		// 	},
+		// });
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new SampleSettingTab(this.app, this));
@@ -157,6 +161,18 @@ class SampleSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.mySetting)
 					.onChange(async (value) => {
 						this.plugin.settings.mySetting = value;
+						await this.plugin.saveSettings();
+					})
+			);
+		new Setting(containerEl)
+			.setName("OpenAI API Key")
+			.setDesc("Set your OpenAI API key here.")
+			.addText((text) =>
+				text
+					.setPlaceholder("Enter OpenAI API key here")
+					.setValue(this.plugin.settings.mySetting)
+					.onChange(async (value) => {
+						this.plugin.settings.openAiKey = value;
 						await this.plugin.saveSettings();
 					})
 			);
