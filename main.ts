@@ -46,7 +46,7 @@ export default class NemesisPlugin extends Plugin {
 		3. Ask thought-provoking questions that challenge the main ideas
 		4. Provide constructive criticism while maintaining a supportive tone
 
-		End each section with a <section-done>.
+		End each section with a <section-done>. Keep it short.
 		Here's the content to analyze:
 		${fileContent}`;
 
