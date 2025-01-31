@@ -1,3 +1,4 @@
+import { ExampleView, VIEW_TYPE_EXAMPLE } from "CustomView";
 import {
 	addIcon,
 	App,
@@ -8,9 +9,13 @@ import {
 	Plugin,
 	PluginSettingTab,
 	Setting,
+	WorkspaceLeaf,
 } from "obsidian";
 
 // Remember to rename these classes and interfaces!
+//
+// Custom views need to be registered when the plugin is enabled,
+// and cleaned up when the plugin is disabled:
 
 interface MyPluginSettings {
 	mySetting: string;
@@ -24,6 +29,25 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 
 export default class NemesisPlugin extends Plugin {
 	settings: MyPluginSettings;
+
+	async activateView() {
+		const { workspace } = this.app;
+		let leaf: WorkspaceLeaf | null = null;
+		const leaves = workspace.getLeavesOfType(VIEW_TYPE_EXAMPLE);
+		if (leaves.length > 0) {
+			// A leaf with our view already exists, use that
+			leaf = leaves[0];
+		} else {
+			// Create a new leaf in the right sidebar
+			leaf = workspace.getRightLeaf(false);
+			if (leaf) {
+				await leaf.setViewState({
+					type: VIEW_TYPE_EXAMPLE,
+					active: true,
+				});
+			}
+		}
+	}
 
 	async onload() {
 		await this.loadSettings();
@@ -42,10 +66,13 @@ export default class NemesisPlugin extends Plugin {
 				// Called when the user clicks the icon.
 				new Notice("This is a notice!");
 				console.log("click");
+				this.activateView();
 				// console.log(`My openai key: ${this.settings.openAiKey}`);
 			}
 		);
 		// todo create and open new view to display the open ai nemesis result
+		// it currently does not pop open the view
+		this.registerView(VIEW_TYPE_EXAMPLE, (leaf) => new ExampleView(leaf));
 
 		// use this class to perform additional things with the ribbon
 		// ribbonIconEl.addClass("my-plugin-ribbon-class");
