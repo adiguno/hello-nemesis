@@ -10,6 +10,8 @@ export const VIEW_TYPE_EXAMPLE = "example-view";
 
 export class ExampleView extends ItemView {
 	root: Root | null = null;
+	content: string = '';
+	contents: string[] = [];
 
 	constructor(leaf: WorkspaceLeaf) {
 		super(leaf);
@@ -30,11 +32,27 @@ export class ExampleView extends ItemView {
 		this.root = createRoot(this.containerEl.children[1]);
 		// this.root.render(<div>asdf</div>);
 		// this.root.render(<ExampleReactView />);
-		this.root.render(React.createElement(ExampleReactView));
-	}
+		this.root.render(
+            React.createElement(ExampleReactView, {
+				contents: this.contents
+            })
+        );	}
 
 	async onClose() {
 		// Nothing to clean up.
 		this.root?.unmount();
 	}
+
+	updateContent(content: string) {
+		this.content = content;
+		this.contents = this.content.split("<section-done>")
+		// console.log(this.content)
+		// console.log(this.contents)
+		if (!this.root) return null;
+		this.root.render(
+			React.createElement(ExampleReactView, {
+				contents: this.contents
+			})
+		);
+    }
 }
