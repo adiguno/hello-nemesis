@@ -1,7 +1,7 @@
 {
 	"id": "hello-nemesis",
 	"name": "hello nemesis",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"minAppVersion": "0.15.0",
 	"description": "Uses OpenAI to challenge your ideas.",
 	"author": "Dian",
