@@ -132,8 +132,8 @@ export default class NemesisPlugin extends Plugin {
 			"Sample Plugin",
 			(evt: MouseEvent) => {
 				// Called when the user clicks the icon.
-				new Notice("This is a notice!");
-				console.log("click");
+				new Notice("Hello My Nemesis!");
+				// console.log("click");
 				this.activateView();
 				this.testFunction();
 				// console.log(`My openai key: ${this.settings.openAiKey}`);
@@ -166,26 +166,7 @@ export default class NemesisPlugin extends Plugin {
 		// 		editor.replaceSelection("Sample Editor Command");
 		// 	},
 		// });
-		// This adds a complex command that can check whether the current state of the app allows execution of the command
-		// this.addCommand({
-		// 	id: "open-sample-modal-complex",
-		// 	name: "Open sample modal (complex)",
-		// 	checkCallback: (checking: boolean) => {
-		// 		// Conditions to check
-		// 		const markdownView =
-		// 			this.app.workspace.getActiveViewOfType(MarkdownView);
-		// 		if (markdownView) {
-		// 			// If checking is true, we're simply "checking" if the command can be run.
-		// 			// If checking is false, then we want to actually perform the operation.
-		// 			if (!checking) {
-		// 				new SampleModal(this.app).open();
-		// 			}
 
-		// 			// This command will only show up in Command Palette when the check function returns true
-		// 			return true;
-		// 		}
-		// 	},
-		// });
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new SampleSettingTab(this.app, this));
