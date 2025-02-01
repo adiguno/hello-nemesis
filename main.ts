@@ -22,7 +22,7 @@ interface PluginSettings {
 }
 
 const DEFAULT_SETTINGS: PluginSettings = {
-	openAiKey: "openAiKeyTBD",
+	openAiKey: "your open ai api key",
 };
 
 
