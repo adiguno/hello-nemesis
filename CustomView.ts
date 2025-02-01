@@ -4,7 +4,7 @@ import { ItemView, WorkspaceLeaf } from "obsidian";
 // Extracting it to a constant, VIEW_TYPE_EXAMPLE, is a good idea—as you will see later in this guide.
 import { Root, createRoot } from "react-dom/client";
 import * as React from "react";
-import { ExampleReactView } from "./ReactView";
+import { NemesisRightReactView } from "./NemesisRightReactView";
 
 export const VIEW_TYPE_EXAMPLE = "example-view";
 
@@ -33,7 +33,7 @@ export class ExampleView extends ItemView {
 		// this.root.render(<div>asdf</div>);
 		// this.root.render(<ExampleReactView />);
 		this.root.render(
-            React.createElement(ExampleReactView, {
+            React.createElement(NemesisRightReactView, {
 				contents: this.contents
             })
         );	}
@@ -50,7 +50,7 @@ export class ExampleView extends ItemView {
 		// console.log(this.contents)
 		if (!this.root) return null;
 		this.root.render(
-			React.createElement(ExampleReactView, {
+			React.createElement(NemesisRightReactView, {
 				contents: this.contents
 			})
 		);
