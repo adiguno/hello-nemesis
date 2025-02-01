@@ -2,9 +2,6 @@ import { ExampleView, VIEW_TYPE_EXAMPLE } from "CustomView";
 import {
 	addIcon,
 	App,
-	Editor,
-	MarkdownView,
-	Modal,
 	Notice,
 	Plugin,
 	PluginSettingTab,
@@ -132,7 +129,7 @@ export default class NemesisPlugin extends Plugin {
 			"Sample Plugin",
 			(evt: MouseEvent) => {
 				// Called when the user clicks the icon.
-				new Notice("Hello My Nemesis!");
+				new Notice("Generating response!");
 				// console.log("click");
 				this.activateView();
 				this.testFunction();
