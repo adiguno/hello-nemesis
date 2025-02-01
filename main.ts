@@ -17,19 +17,17 @@ import {
 // Custom views need to be registered when the plugin is enabled,
 // and cleaned up when the plugin is disabled:
 
-interface MyPluginSettings {
-	mySetting: string;
+interface PluginSettings {
 	openAiKey: string;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: "default",
+const DEFAULT_SETTINGS: PluginSettings = {
 	openAiKey: "openAiKeyTBD",
 };
 
 
 export default class NemesisPlugin extends Plugin {
-	settings: MyPluginSettings;
+	settings: PluginSettings;
 
 	async testFunction() {
 		const activeFile = this.app.workspace.getActiveFile();
@@ -249,24 +247,12 @@ class SampleSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName("Setting #1")
-			.setDesc("It's a secret")
-			.addText((text) =>
-				text
-					.setPlaceholder("Enter your secret")
-					.setValue(this.plugin.settings.mySetting)
-					.onChange(async (value) => {
-						this.plugin.settings.mySetting = value;
-						await this.plugin.saveSettings();
-					})
-			);
-		new Setting(containerEl)
 			.setName("OpenAI API Key")
 			.setDesc("Set your OpenAI API key here.")
 			.addText((text) =>
 				text
 					.setPlaceholder("Enter OpenAI API key here")
-					.setValue(this.plugin.settings.mySetting)
+					.setValue(this.plugin.settings.openAiKey)
 					.onChange(async (value) => {
 						this.plugin.settings.openAiKey = value;
 						await this.plugin.saveSettings();
