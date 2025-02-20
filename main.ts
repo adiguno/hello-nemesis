@@ -206,7 +206,7 @@ class NemesisSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName("OpenAI API Key")
+			.setName("OpenAI API key")
 			.setDesc("Set your OpenAI API key here.")
 			.addText((text) =>
 				text
