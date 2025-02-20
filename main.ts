@@ -124,7 +124,7 @@ export default class NemesisPlugin extends Plugin {
 		);
 		const ribbonIconEl = this.addRibbonIcon(
 			"nemesisLogo",
-			"Sample Plugin",
+			"Hello Nemesis",
 			(evt: MouseEvent) => {
 				// Called when the user clicks the icon.
 				new Notice("Generating response!");
