@@ -62,7 +62,7 @@ export default class NemesisPlugin extends Plugin {
 			}
 			const aiResponse = data.choices[0].message.content;
 
-			// 			const aiResponse = `1. The statement "Billionaires could've stopped sooner, but they didn't, because there's nothing else they wish to do" assumes that billionaires continue to build their companies solely out of interest and not for other reasons such as maintaining power or increasing wealth. It could be argued that there are various motivations for billionaires to continue building their projects beyond just genuine interest.
+			// const aiResponse = `1. The statement "Billionaires could've stopped sooner, but they didn't, because there's nothing else they wish to do" assumes that billionaires continue to build their companies solely out of interest and not for other reasons such as maintaining power or increasing wealth. It could be argued that there are various motivations for billionaires to continue building their projects beyond just genuine interest.
 			// <section-done>
 
 			// 2. An alternative perspective could be that while YC does emphasize making something people want and understanding user needs, the process of becoming a billionaire involves more factors than just user satisfaction. Factors like market demand, competition, innovation, timing, and luck also play a significant role in achieving billionaire status.
@@ -73,7 +73,7 @@ export default class NemesisPlugin extends Plugin {
 
 			// 4. The article discusses the importance of understanding user needs and building products based on that understanding. It would be beneficial to also explore the potential drawbacks of solely focusing on user feedback and the risks of ignoring broader market trends or innovations.
 			// <section-done>
-			// `
+			// `;
 
 			// update the leaf with new response
 			const leaves =
@@ -119,11 +119,11 @@ export default class NemesisPlugin extends Plugin {
 
 		// This creates an icon in the left ribbon.
 		addIcon(
-			"logo",
+			"nemesisLogo",
 			'<path d="M10 90V14.8284C10 13.0466 12.1543 12.1543 13.4142 13.4142L86.5858 86.5858C87.8457 87.8457 90 86.9534 90 85.1716V10" stroke="#FF8A8A" stroke-width="4" stroke-linecap="round"/>'
 		);
 		const ribbonIconEl = this.addRibbonIcon(
-			"logo",
+			"nemesisLogo",
 			"Sample Plugin",
 			(evt: MouseEvent) => {
 				// Called when the user clicks the icon.
