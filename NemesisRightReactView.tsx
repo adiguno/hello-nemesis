@@ -11,11 +11,9 @@ export const NemesisRightReactView = ({ contents }: ExampleReactViewProps) => {
 			<h1>Hello My Nemesis</h1>
 			{contents.map((content, index) => {
 				return (
-					<>
-						<div key={index}>
-							<p>{content}</p>
-						</div>
-					</>
+					<div key={index}>
+						<p>{content}</p>
+					</div>
 				);
 			})}
 		</div>
