@@ -5,6 +5,7 @@ import {
 	Notice,
 	Plugin,
 	PluginSettingTab,
+	requestUrl,
 	Setting,
 	WorkspaceLeaf,
 } from "obsidian";
@@ -16,7 +17,6 @@ interface PluginSettings {
 const DEFAULT_SETTINGS: PluginSettings = {
 	openAiKey: "",
 };
-
 
 export default class NemesisPlugin extends Plugin {
 	settings: PluginSettings;
@@ -41,40 +41,43 @@ export default class NemesisPlugin extends Plugin {
 		${fileContent}`;
 
 		try {
-			const response = await fetch('https://api.openai.com/v1/chat/completions', {
-			    method: 'POST',
-			    headers: {
-			        'Authorization': `Bearer ${this.settings.openAiKey}`,
-			        'Content-Type': 'application/json',
-			    },
-			    body: JSON.stringify({
-			        model: "gpt-3.5-turbo",
-			        messages: [{ role: "user", content: nemesisPrompt }]
-			    })
+			// use Obsidian requestUrl API to avoid CORS issues
+			const response = await requestUrl({
+				url: "https://api.openai.com/v1/chat/completions",
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${this.settings.openAiKey}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					model: "gpt-3.5-turbo",
+					messages: [{ role: "user", content: nemesisPrompt }],
+				}),
 			});
 
-			const data = await response.json();
+			const data = await response.json;
 
-			if (!response.ok) {
-			    throw new Error(data.error?.message || 'API request failed');
+			if (response.status !== 200) {
+				throw new Error(data.error?.message || "API request failed");
 			}
-			const aiResponse = data.choices[0].message.content
+			const aiResponse = data.choices[0].message.content;
 
-// 			const aiResponse = `1. The statement "Billionaires could've stopped sooner, but they didn't, because there's nothing else they wish to do" assumes that billionaires continue to build their companies solely out of interest and not for other reasons such as maintaining power or increasing wealth. It could be argued that there are various motivations for billionaires to continue building their projects beyond just genuine interest.
-// <section-done>
+			// 			const aiResponse = `1. The statement "Billionaires could've stopped sooner, but they didn't, because there's nothing else they wish to do" assumes that billionaires continue to build their companies solely out of interest and not for other reasons such as maintaining power or increasing wealth. It could be argued that there are various motivations for billionaires to continue building their projects beyond just genuine interest.
+			// <section-done>
 
-// 2. An alternative perspective could be that while YC does emphasize making something people want and understanding user needs, the process of becoming a billionaire involves more factors than just user satisfaction. Factors like market demand, competition, innovation, timing, and luck also play a significant role in achieving billionaire status.
-// <section-done>
+			// 2. An alternative perspective could be that while YC does emphasize making something people want and understanding user needs, the process of becoming a billionaire involves more factors than just user satisfaction. Factors like market demand, competition, innovation, timing, and luck also play a significant role in achieving billionaire status.
+			// <section-done>
 
-// 3. How do we define what users want? Is it always a straightforward process to understand and meet user needs, especially in a fast-changing market? Are there instances where companies have succeeded without prioritizing user desires above all else?
-// <section-done>
+			// 3. How do we define what users want? Is it always a straightforward process to understand and meet user needs, especially in a fast-changing market? Are there instances where companies have succeeded without prioritizing user desires above all else?
+			// <section-done>
 
-// 4. The article discusses the importance of understanding user needs and building products based on that understanding. It would be beneficial to also explore the potential drawbacks of solely focusing on user feedback and the risks of ignoring broader market trends or innovations.
-// <section-done>
-// `
+			// 4. The article discusses the importance of understanding user needs and building products based on that understanding. It would be beneficial to also explore the potential drawbacks of solely focusing on user feedback and the risks of ignoring broader market trends or innovations.
+			// <section-done>
+			// `
 
 			// update the leaf with new response
-			const leaves = this.app.workspace.getLeavesOfType(VIEW_TYPE_EXAMPLE);
+			const leaves =
+				this.app.workspace.getLeavesOfType(VIEW_TYPE_EXAMPLE);
 			// if the view exists, update the content
 			if (leaves.length > 0) {
 				const view = leaves[0].view as ExampleView;
@@ -159,7 +162,6 @@ export default class NemesisPlugin extends Plugin {
 		// 	},
 		// });
 
-
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new NemesisSettingTab(this.app, this));
 
@@ -175,7 +177,7 @@ export default class NemesisPlugin extends Plugin {
 		// );
 	}
 
-	onunload() { }
+	onunload() {}
 
 	async loadSettings() {
 		this.settings = Object.assign(
