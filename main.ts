@@ -9,11 +9,6 @@ import {
 	WorkspaceLeaf,
 } from "obsidian";
 
-// Remember to rename these classes and interfaces!
-//
-// Custom views need to be registered when the plugin is enabled,
-// and cleaned up when the plugin is disabled:
-
 interface PluginSettings {
 	openAiKey: string;
 }
