@@ -10,7 +10,7 @@ export const VIEW_TYPE_EXAMPLE = "example-view";
 
 export class ExampleView extends ItemView {
 	root: Root | null = null;
-	content: string = '';
+	content: string = "";
 	contents: string[] = [];
 
 	constructor(leaf: WorkspaceLeaf) {
@@ -22,7 +22,7 @@ export class ExampleView extends ItemView {
 	}
 
 	getDisplayText() {
-		return "Example view";
+		return "Nemesis Panel";
 	}
 
 	async onOpen() {
@@ -33,10 +33,11 @@ export class ExampleView extends ItemView {
 		// this.root.render(<div>asdf</div>);
 		// this.root.render(<ExampleReactView />);
 		this.root.render(
-            React.createElement(NemesisRightReactView, {
-				contents: this.contents
-            })
-        );	}
+			React.createElement(NemesisRightReactView, {
+				contents: this.contents,
+			})
+		);
+	}
 
 	async onClose() {
 		// Nothing to clean up.
@@ -45,14 +46,14 @@ export class ExampleView extends ItemView {
 
 	updateContent(content: string) {
 		this.content = content;
-		this.contents = this.content.split("<section-done>")
+		this.contents = this.content.split("<section-done>");
 		// console.log(this.content)
 		// console.log(this.contents)
 		if (!this.root) return null;
 		this.root.render(
 			React.createElement(NemesisRightReactView, {
-				contents: this.contents
+				contents: this.contents,
 			})
 		);
-    }
+	}
 }
