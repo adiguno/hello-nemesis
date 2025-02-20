@@ -14,7 +14,7 @@ interface PluginSettings {
 }
 
 const DEFAULT_SETTINGS: PluginSettings = {
-	openAiKey: "your open ai api key",
+	openAiKey: "",
 };
 
 
